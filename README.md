@@ -1,0 +1,4 @@
+evoalg
+======
+
+Evolutionary algorithms labs
