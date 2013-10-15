@@ -2,7 +2,7 @@ package cga
 
 object CGA {
   val rand = scala.util.Random
-  val d = 48
+  val d = 128
   
   type ProbabilityVector = List[Double]
   type Individual = List[Int]
@@ -19,7 +19,7 @@ object CGA {
   def orderIndividuals(F: Function[Individual, Int])(x1: Individual, x2: Individual) =
     if(F(x1) > F(x2)) (x1, x2) else (x2, x1)
   
-  var n = 1000
+  var n = 1500
   def terminationCondition: Boolean = {
     n = n - 1
     n == 0
@@ -35,8 +35,8 @@ object CGA {
     var x1 = randomIndividual(p)
     var x2 = randomIndividual(p)
     while (!terminationCondition) {
-      print("x1: ", printVector(x1), " rank: ", F(x1))
-      println(" x2: ", printVector(x2), " rank: ", F(x2))
+      print("x1", printVector(x1), "rank", F(x1))
+      println("x2:", printVector(x2), "rank", F(x2))
       
       val (best, worst) = orderIndividuals(F)(x1, x2)
       val pbw = p.zip(best.zip(worst))
@@ -63,6 +63,7 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     println(CGA.CGA(CGA.oneMax)(0.01))
+    println(CGA.CGA(CGA.pattern(List.fill(64)(0) ++ List.fill(64)(1)))(0.01))
   }
 
 }
