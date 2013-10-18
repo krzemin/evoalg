@@ -19,7 +19,7 @@ object CGA {
   def orderIndividuals(F: Function[Individual, Int])(x1: Individual, x2: Individual) =
     if(F(x1) > F(x2)) (x1, x2) else (x2, x1)
   
-  var n = 1500
+  var n = 500
   def terminationCondition: Boolean = {
     n = n - 1
     n == 0
@@ -40,7 +40,7 @@ object CGA {
       
       val (best, worst) = orderIndividuals(F)(x1, x2)
       val pbw = p.zip(best.zip(worst))
-      p = pbw.map( it => it match {
+      p = pbw.map({
         case (pi, (1, 0)) => pi + theta
         case (pi, (0, 1)) => pi - theta
         case (pi, _) => pi
@@ -54,7 +54,7 @@ object CGA {
   
   def oneMax(x: Individual) = x.sum
   def pattern(p: Individual)(x: Individual) =
-    p.zip(x).count((p) => p match { case (a, b) => a == b } )
+    p.zip(x).count( { case (a, b) => a == b } )
   
 }
 
