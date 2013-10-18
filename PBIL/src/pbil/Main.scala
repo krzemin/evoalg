@@ -35,7 +35,16 @@ object PBIL {
     case (x :: xs) => x.toString ++ printVector(xs)
   }
   
+  def bestIndividual(F: Function[Individual, Int])(pop: Population): Individual = pop.maxBy(F)
+  
   def PBIL(F: Function[Individual, Int])(N: Int, th1: Double, th2: Double, th3: Double): Individual = {
+    val p = initProbabilityVector
+    val population = randomPopulation(p, N)
+    
+    while(!terminationCondition) {
+      val best = bestIndividual(F)(population)
+      
+    }
     
   }
   
