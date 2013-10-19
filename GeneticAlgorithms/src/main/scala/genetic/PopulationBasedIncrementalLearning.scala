@@ -13,8 +13,8 @@ object PopulationBasedIncrementalLearning {
            th2: Double,
            th3: Double): List[(Individual, Int)] = {
 
-    def PBILAux(n: Int, p: VectorP, pop: Population): List[(Individual, Int)] = {
-      if (n == 0) Nil
+    def PBILAux(n: Int, p: VectorP, pop: Population, acc: List[(Individual, Int)]): List[(Individual, Int)] = {
+      if (n == 0) acc.reverse
       else {
         val best = bestIndividual(F, pop)
         val px = p.zip(best)
@@ -25,12 +25,12 @@ object PopulationBasedIncrementalLearning {
         })
 
         val newPopulation = randomPopulation(p, populationSize)
-        (best, F(best)) :: PBILAux(n - 1, newP, newPopulation)
+        PBILAux(n - 1, newP, newPopulation, (best, F(best)) :: acc)
       }
     }
 
     val p = initVectorP(individualSize)
-    PBILAux(steps, p, randomPopulation(p, populationSize))
+    PBILAux(steps, p, randomPopulation(p, populationSize), Nil)
   }
 
 }
