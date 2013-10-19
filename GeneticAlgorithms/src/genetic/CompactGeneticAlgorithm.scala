@@ -3,7 +3,7 @@ package genetic
 import Genetic._
 
 object CompactGeneticAlgorithm {
-  def CGA(F: IndEvalFunction, size: Int, steps: Int, theta: Double): List[(Individual, Int)] = {
+  def CGA(F: IndEvalFunction, individualSize: Int, steps: Int, theta: Double): List[(Individual, Int)] = {
 
     def CGAAux(n: Int, p: VectorP, x1: Individual, x2: Individual): List[(Individual, Int)] =
       if (n == 0) Nil
@@ -20,7 +20,7 @@ object CompactGeneticAlgorithm {
         (best, F(best)) :: CGAAux(n - 1, newP, newX1, newX2)
       }
 
-    val p = initVectorP(size)
+    val p = initVectorP(individualSize)
     val x1 = randomIndividual(p)
     val x2 = randomIndividual(p)
     CGAAux(steps, p, x1, x2)

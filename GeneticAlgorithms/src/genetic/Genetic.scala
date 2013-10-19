@@ -10,11 +10,16 @@ object Genetic {
 
   val rand = scala.util.Random
 
+  def uniformRandom(): Double = rand.nextDouble()
+
   def binaryRandom(p : Double) =
-    if (rand.nextDouble < p) 1 else 0
+    if (uniformRandom() < p) 1 else 0
 
   def randomIndividual(p: VectorP): Individual =
     p.map(binaryRandom)
+
+  def randomPopulation(p: VectorP, N: Int): Population =
+    List.fill(N)(randomIndividual(p))
 
   def initVectorP(size: Int): VectorP =
     List.fill(size)(0.5)
