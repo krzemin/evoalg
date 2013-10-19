@@ -8,18 +8,18 @@ object Genetic {
   type VectorP = List[Double]
   type IndEvalFunction = Function[Individual, Int]
 
-  val rand = scala.util.Random
+  val rand = new scala.util.Random
 
-  def uniformRandom(): Double = rand.nextDouble()
+  def uniformRandom(rnd: scala.util.Random = rand): Double = rnd.nextDouble()
 
-  def binaryRandom(p : Double) =
-    if (uniformRandom() < p) 1 else 0
+  def binaryRandom(p : Double, rnd: scala.util.Random = rand) =
+    if (uniformRandom(rnd) < p) 1 else 0
 
-  def randomIndividual(p: VectorP): Individual =
-    p.map(binaryRandom)
+  def randomIndividual(p: VectorP, rnd: scala.util.Random = rand): Individual =
+    p.map {(pk) => binaryRandom(pk, rnd) }
 
-  def randomPopulation(p: VectorP, N: Int): Population =
-    List.fill(N)(randomIndividual(p))
+  def randomPopulation(p: VectorP, N: Int, rnd: scala.util.Random = rand): Population =
+    List.fill(N)(randomIndividual(p, rnd))
 
   def initVectorP(size: Int): VectorP =
     List.fill(size)(0.5)
