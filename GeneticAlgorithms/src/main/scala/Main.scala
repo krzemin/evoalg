@@ -56,9 +56,21 @@ object Main {
 
   def main(args: Array[String]) = {
     println("Running genetic algorithm...")
+
+
+    // good example of convergence to the optimal solution
+    //val result = CGA(oneMax, 128, 2000, 0.015)
+
+    // when theta factor is higher, convergence is faster, but not to the optimum
+    // val result = CGA(oneMax, 128, 2000, 0.3)
+
+    // when theta is lower, optimum is achieved, but in many more steps
+    //val result = CGA(oneMax, 128, 30000, 0.001)
+
     //val result = CGA(oneMax, 1024, 15000, 0.004)
-    //val result = time( PBIL(oneMax, 512, 1024, 1000, 0.001, 0.3, 0.1) )
-    val result = time( runPBILOneMaxMultiThreaded(4, 128, 1024, 2000, 0.01, 0.003, 0.01) )
+
+    val result = time( PBIL(oneMax, 256, 256, 1000, 0.001, 0.3, 0.1, new scala.util.Random) )
+    //val result = time( runPBILOneMaxMultiThreaded(4, 128, 1024, 2000, 0.01, 0.003, 0.01) )
 
     println("Algorithm finished. Displaying chart...")
     showChart(result)
